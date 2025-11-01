@@ -52,3 +52,5 @@ final TextStyle punchLine1TextStyle = TextStyle(
 );
 
 final TextStyle punchLine2TextStyle = punchLine1TextStyle.copyWith(color: Color(0xFF000000));
+final TextStyle userTextStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+final TextStyle user2TextStyle = TextStyle(fontSize: 16, color: Colors.black54);

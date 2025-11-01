@@ -10,6 +10,7 @@ import '../../app_state.dart';
 import '../../model/category.dart';
 
 class HomePage extends StatelessWidget {
+  static const String id = 'home_page';
   const HomePage({super.key});
 
   @override
