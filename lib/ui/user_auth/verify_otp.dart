@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:local_events/styleguide.dart';
+import 'package:local_events/ui/user_auth/firebase_auth_methods.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class VerifyOtp extends StatefulWidget {
   static const String id = 'verify_otp';
@@ -10,7 +12,20 @@ class VerifyOtp extends StatefulWidget {
 }
 
 class _VerifyOtpState extends State<VerifyOtp> {
-  final _email = TextEditingController();
+  final phoneController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    phoneController.dispose();
+  }
+
+  Future<void> phoneLogin () async {
+    await FirebaseAuthMethods(auth: FirebaseAuth.instance).phoneLogin(
+        PhoneNumber: phoneController.text,
+        context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,9 +67,10 @@ class _VerifyOtpState extends State<VerifyOtp> {
                     Padding(
                       padding: EdgeInsets.only(right: 8.0),
                       child: TextField(
+                        controller: phoneController,
                         autofocus: true,
                         decoration: InputDecoration(
-                          hintText: 'OTP Number',
+                          hintText: 'Phone Number',
                           hintStyle: TextStyle(fontSize: 18, color: Colors.black54),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
@@ -81,14 +97,14 @@ class _VerifyOtpState extends State<VerifyOtp> {
                               child: Padding(
                                 padding: EdgeInsets.only(right: 8.0),
                                 child: TextButton(
-                                    onPressed: () {},
+                                    onPressed: phoneLogin,
                                     style: ButtonStyle(
                                       foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
                                       backgroundColor: WidgetStateProperty.all<Color>(Color(0xFFFF4700)),
                                     ),
                                     child: Padding(
                                       padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
-                                      child: Text('Continue', style: TextStyle(fontSize: 17),),
+                                      child: Text('Send OTP', style: TextStyle(fontSize: 17),),
                                     )),
                               ),
                             ),

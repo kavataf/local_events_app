@@ -1,43 +1,21 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:local_events/styleguide.dart';
-import 'package:local_events/ui/user_auth/login.dart';
 import 'package:flutter/material.dart';
+import 'package:local_events/styleguide.dart';
 
-import 'firebase_auth_methods.dart';
-
-class SignUp extends StatefulWidget {
-  static const String id = 'signup';
-  const SignUp({super.key});
+class ChangePassword extends StatefulWidget {
+  static const String id = 'change_password';
+  const ChangePassword({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<ChangePassword> createState() => _ChangePasswordState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _ChangePasswordState extends State<ChangePassword> {
   var _secureText1 = true;
   var _secureText2 = true;
-  final _password = FocusNode();
-  final _emailFocus = FocusNode();
-  final _confirmPassword = FocusNode();
-
-  final emailController = TextEditingController();
-  final nameController = TextEditingController();
+  var _secureText3 = true;
   final passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    super.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-  }
-  void signUpHere () async{
-    await FirebaseAuthMethods(auth: FirebaseAuth.instance).signUpWithEmail(
-      name: nameController.text,
-        email: emailController.text,
-        password: passwordController.text,
-        context: context);
-    Navigator.pushNamed(context, LoginPage.id);
-  }
+  final newPasswordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -68,82 +46,26 @@ class _SignUpState extends State<SignUp> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Create Account',
+                    Text('Change Password',
                       style: userTextStyle,
                     ),
                     SizedBox(height: 10,),
-                    Text('Create a new account to get started and enjoy seamless access to our features',
+                    Text('Protect your account with a strong, secure password.',
                       style: user2TextStyle,
                     ),
-                    SizedBox(height: 30,),
+                    SizedBox(height: 40,),
                     Padding(
                       padding: EdgeInsets.only(right: 8.0),
                       child: TextField(
-                        controller: nameController,
-                        autofocus: true,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.person),
-                          hintText: 'Full Name',
-                          hintStyle: TextStyle(fontSize: 18, color: Colors.black54),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xFFFF4700)),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                        ),
-                        style: TextStyle(fontSize: 20, color: Colors.black),
-                        keyboardType: TextInputType.text,
-                        textInputAction: TextInputAction.next,
-                        onEditingComplete: () => FocusScope.of(context).requestFocus(_emailFocus),
-                      ),
-                    ),
-                    SizedBox(height: 20,),
-                    Padding(
-                      padding: EdgeInsets.only(right: 8.0),
-                      child: TextField(
-                        focusNode: _emailFocus,
-                        controller: emailController,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.email),
-                          hintText: 'Email address',
-                          hintStyle: TextStyle(fontSize: 18, color: Colors.black54),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xFFFF4700)),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                        ),
-                        style: TextStyle(fontSize: 20, color: Colors.black),
-                        keyboardType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.next,
-                        onEditingComplete: () => FocusScope.of(context).requestFocus(_password),
-                      ),
-                    ),
-                    SizedBox(height: 20,),
-                    Padding(
-                      padding: EdgeInsets.only(right: 8.0),
-                      child: TextField(
-                        focusNode: _password,
                         controller: passwordController,
                         decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.lock),
                           suffixIcon: IconButton(onPressed: () {
                             setState(() {
                               _secureText1 = !_secureText1;
                             });
                           }, icon: Icon(_secureText1 ? Icons.visibility_off : Icons.visibility)),
-                          hintText: 'Password',
-                          hintStyle: TextStyle(fontSize: 18, color: Colors.black54),
+                          labelText: 'Current Password',
+                          labelStyle: TextStyle(fontSize: 18, color: Colors.black54),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
                             borderRadius: BorderRadius.circular(20),
@@ -159,23 +81,21 @@ class _SignUpState extends State<SignUp> {
                         obscureText: _secureText1,
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.next,
-                        onEditingComplete: () => FocusScope.of(context).requestFocus(_confirmPassword),
                       ),
                     ),
                     SizedBox(height: 20,),
                     Padding(
                       padding: EdgeInsets.only(right: 8.0),
                       child: TextField(
-                        focusNode: _confirmPassword,
+                        controller: newPasswordController,
                         decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.lock),
                           suffixIcon: IconButton(onPressed: () {
                             setState(() {
                               _secureText2 = !_secureText2;
                             });
                           }, icon: Icon(_secureText2 ? Icons.visibility_off : Icons.visibility)),
-                          hintText: 'Confirm Password',
-                          hintStyle: TextStyle(fontSize: 18, color: Colors.black54),
+                          labelText: 'New Password',
+                          labelStyle: TextStyle(fontSize: 18, color: Colors.black54),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
                             borderRadius: BorderRadius.circular(20),
@@ -190,56 +110,60 @@ class _SignUpState extends State<SignUp> {
                         style: TextStyle(fontSize: 20, color: Colors.black),
                         obscureText: _secureText2,
                         keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.next,
+                      ),
+                    ),
+                    SizedBox(height: 20,),
+                    Padding(
+                      padding: EdgeInsets.only(right: 8.0),
+                      child: TextField(
+                        controller: confirmPasswordController,
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(onPressed: () {
+                            setState(() {
+                              _secureText3 = !_secureText3;
+                            });
+                          }, icon: Icon(_secureText3 ? Icons.visibility_off : Icons.visibility)),
+                          labelText: 'Confirm Password',
+                          labelStyle: TextStyle(fontSize: 18, color: Colors.black54),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xFFFF4700)),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
+                        style: TextStyle(fontSize: 20, color: Colors.black),
+                        obscureText: _secureText3,
+                        keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.done,
                       ),
                     ),
-                    SizedBox(height: 15,),
+                    SizedBox(height: 30,),
                     Row(
                       children: [
                         Expanded(
                           child: Padding(
                             padding: EdgeInsets.only(right: 8.0),
                             child: TextButton(
-                                onPressed: signUpHere,
+                                onPressed: () {},
                                 style: ButtonStyle(
                                   foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
                                   backgroundColor: WidgetStateProperty.all<Color>(Color(0xFFFF4700)),
                                 ),
                                 child: Padding(
                                   padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
-                                  child: Text('Create Account', style: TextStyle(fontSize: 17),),
+                                  child: Text('Continue', style: TextStyle(fontSize: 17),),
                                 )),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 20,),
-                    RichText(
-                        text: TextSpan(
-                          text: 'Already have an account?',
-                          style: TextStyle(
-                            fontSize: 17,
-                            color: Colors.black,
-                          ),
-                          children: [
-                            WidgetSpan(
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 8.0),
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.pushNamed(context, LoginPage.id);
-                                  },
-                                  child: Text('Sign In here',
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      color: Color(0xFFFF4700),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        )),
+
                   ],
                 ),
               ],

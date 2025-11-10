@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:local_events/ui/accounts/notifications_settings.dart';
+import 'package:local_events/ui/accounts/privacy_settings.dart';
+import 'package:local_events/ui/accounts/user.dart';
+import 'package:local_events/ui/accounts/user_profile.dart';
+import 'package:local_events/ui/user_auth/change_password.dart';
 import 'package:local_events/ui/user_auth/forgot_password.dart';
 import 'package:local_events/ui/user_auth/signup.dart';
 import 'package:local_events/ui/user_auth/verify_otp.dart';
@@ -27,13 +32,18 @@ class MyApp extends StatelessWidget {
         primaryColor: Color(0xFFFF4700),
       ),
       home: LoginPage(),
-      initialRoute: LoginPage.id,
+      initialRoute: HomePage.id,
       routes: {
         HomePage.id: (context) => const HomePage(),
         LoginPage.id: (context) => const LoginPage(),
         SignUp.id: (context) => const SignUp(),
         ForgotPassword.id: (context) => const ForgotPassword(),
         VerifyOtp.id: (context) => const VerifyOtp(),
+        UserAccount.id: (context) => const UserAccount(),
+        UserProfile.id: (context) => const UserProfile(),
+        NotificationsSettings.id: (context) => const NotificationsSettings(),
+        ChangePassword.id: (context) => const ChangePassword(),
+        PrivacySettings.id: (context) => const PrivacySettings(),
       },
     );
   }

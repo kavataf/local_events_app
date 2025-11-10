@@ -4,7 +4,8 @@ import 'package:local_events/styleguide.dart';
 import 'package:local_events/ui/user_auth/firebase_auth_methods.dart';
 import 'package:local_events/ui/user_auth/forgot_password.dart';
 import 'package:local_events/ui/user_auth/signup.dart';
-import 'package:local_events/ui/user_auth/verify_otp.dart';
+
+import '../homepage/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   static const String id = 'login';
@@ -29,11 +30,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> loginUser () async {
-    FirebaseAuthMethods(auth: FirebaseAuth.instance).loginUserWithEmail(
+    await FirebaseAuthMethods(auth: FirebaseAuth.instance).loginUserWithEmail(
         email: emailController.text,
         password: passwordController.text,
         context: context);
-    Navigator.pushNamed(context, VerifyOtp.id);
+    Navigator.pushNamed(context, HomePage.id);
   }
 
   @override
@@ -163,22 +164,59 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
                     SizedBox(height: 20,),
-                    Row(
+                    Column(
                       children: [
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(right: 8.0),
-                            child: TextButton(
-                                onPressed: loginUser,
-                                style: ButtonStyle(
-                                  foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
-                                  backgroundColor: WidgetStateProperty.all<Color>(Color(0xFFFF4700)),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
-                                  child: Text('Login', style: TextStyle(fontSize: 17),),
-                                )),
-                          ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(right: 8.0),
+                                child: TextButton(
+                                    onPressed: loginUser,
+                                    style: ButtonStyle(
+                                      foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+                                      backgroundColor: WidgetStateProperty.all<Color>(Color(0xFFFF4700)),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
+                                      child: Text('Login', style: TextStyle(fontSize: 17),),
+                                    )),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20,),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(right: 8.0),
+                                child: TextButton(
+                                    onPressed: () {},
+                                    style: ButtonStyle(
+                                      foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
+                                      backgroundColor: WidgetStateProperty.all<Color>(Color(0xFFF6F8FA)),
+                                      side: WidgetStateProperty.all(BorderSide(
+                                        color:Colors.black54,
+                                        width: 2,
+                                      ),),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Image.asset('assets/google.png', width: 30,
+                                          height: 30,
+                                         ),
+                                        SizedBox(width: 10),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
+                                          child: Text('Sign in with Google', style: TextStyle(fontSize: 20),),
+                                        ),
+                                      ],
+                                    )),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
