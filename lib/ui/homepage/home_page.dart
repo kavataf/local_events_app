@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../event_details/event_search.dart';
 import '../user_auth/login.dart';
 import 'event_widget.dart';
 import 'package:local_events/ui/accounts/user.dart';
@@ -21,7 +22,7 @@ class HomePage extends StatelessWidget {
       Future.microtask(() => Navigator.pushReplacementNamed(context, LoginPage.id));
       return Center(child: CircularProgressIndicator(),);
     }
-
+      // String? name = user.name;
       return Scaffold(
         body: ChangeNotifierProvider<AppState>(
           create: (_) => AppState(),
@@ -40,7 +41,7 @@ class HomePage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 32.0),
                         child: Row(
                           children: [
-                            Text('LOCAL EVENTS',
+                            Text('Welcome Back!',
                               style: fadedTextStyle,
                             ),
                             Spacer(),
@@ -48,12 +49,11 @@ class HomePage extends StatelessWidget {
                               onTap: () {
                                 Navigator.pushNamed(context, UserAccount.id);
                               },
-                              child: CircleAvatar(
+                              child:
+                              CircleAvatar(
                                 backgroundColor: Color(0xFFFFFFFF),
-                                child: Icon(
-                                  Icons.person_2_outlined, size: 30,
-                                  color: Color(0xFF000000),
-                                ),
+                                backgroundImage: AssetImage('assets/avatar.png'),
+                                radius: 25,
                               ),
                             ),
                           ],
@@ -61,7 +61,7 @@ class HomePage extends StatelessWidget {
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 32.0),
-                        child: Text('What\'s up',
+                        child: Text('Faith',
                           style: whiteHeadingTextStyle,
                         ),
                       ),
@@ -78,6 +78,27 @@ class HomePage extends StatelessWidget {
                                   ],
                                 ),
                               ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          children: [
+                            Text('Upcoming Events',
+                              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+                            ),
+                            Spacer(),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(context, EventSearch.id);
+                              },
+                              child: Text('View More',
+                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white,
+                                  decoration: TextDecoration.underline, decorationColor: Colors.white,
+                                  decorationThickness: 2)
+                              ),
+                            )
+                          ],
                         ),
                       ),
                       Padding(

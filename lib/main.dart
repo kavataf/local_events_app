@@ -3,6 +3,7 @@ import 'package:local_events/ui/accounts/notifications_settings.dart';
 import 'package:local_events/ui/accounts/privacy_settings.dart';
 import 'package:local_events/ui/accounts/user.dart';
 import 'package:local_events/ui/accounts/user_profile.dart';
+import 'package:local_events/ui/event_details/event_search.dart';
 import 'package:local_events/ui/user_auth/change_password.dart';
 import 'package:local_events/ui/user_auth/forgot_password.dart';
 import 'package:local_events/ui/user_auth/signup.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         NotificationsSettings.id: (context) => const NotificationsSettings(),
         ChangePassword.id: (context) => const ChangePassword(),
         PrivacySettings.id: (context) => const PrivacySettings(),
+        EventSearch.id: (context) => const EventSearch(),
       },
     );
   }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 final TextStyle fadedTextStyle = TextStyle(
-  fontSize: 16.0,
+  fontSize: 20.0,
   fontWeight: FontWeight.bold,
   color: Color(0x99FFFFFF),
 );
 
 final TextStyle whiteHeadingTextStyle = TextStyle(
-  fontSize: 40.0,
+  fontSize: 30.0,
   fontWeight: FontWeight.bold,
   color: Color(0xFFFFFFFF),
 );

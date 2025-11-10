@@ -20,8 +20,6 @@ class _EventWidgetState extends State<EventWidget> {
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
-    print('Selected category: ${appState.selectedCategoryId}');
-    print('Type: ${appState.selectedCategoryId.runtimeType}');
     return StreamBuilder<QuerySnapshot>(
         stream: _firestore.collection('events')
         .where('categoryid', arrayContains: appState.selectedCategoryId)
@@ -34,7 +32,9 @@ class _EventWidgetState extends State<EventWidget> {
           }
           final events = snapshot.data!.docs;
             if(events.isEmpty) {
-              return Center(child: Text('No events found in this category'));
+              return Center(child: Text('No events found in this category',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+              ));
             }
           return ListView.builder(
             itemCount: events.length,
@@ -56,19 +56,19 @@ class _EventWidgetState extends State<EventWidget> {
                     elevation: 4,
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(24)),
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
                             child: Image.asset(imagePath, height: 150, fit: BoxFit.fitWidth,),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+                            padding: const EdgeInsets.only(top: 8.0, left: 5.0),
                             child: Row(
                               children: [
                                 Expanded(
